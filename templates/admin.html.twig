@@ -1,0 +1,79 @@
+<style>
+    h1 {text-align: center;}
+    p {text-align: center;}
+    div {text-align: center;}
+    th{
+         margin: 3px;
+         padding: 5px;
+         width: max-content;
+         border: 1px solid;
+         border-collapse: collapse;
+     }
+    table td{
+        margin: 3px;
+        padding: 5px;
+        width: max-content;
+        border: 1px solid;
+        border-collapse: collapse;
+    }
+</style>
+<title>
+{% block title %}
+    Admin section
+{% endblock %}
+</title>
+{% block body %}
+    <h1>This is the admin page</h1>
+
+    {% for label, flashes in app.session.flashbag.all %}
+
+        {% for flash in flashes %}
+            <div class="alert">
+                {{ flash }}
+            </div>
+        {% endfor %}
+
+    {% endfor %}
+
+    <div>
+        <table style=" margin:0 auto;" cellpadding="0" cellspacing="0" >
+
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date and time</th>
+                <th scope="col">Email</th>
+                <th scope="col">IP address</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for email in emails %}
+                <tr>
+                    <th scope="row">{{ email.id }}</th>
+                    <td>{{ email.datetime }}</td>
+                    <td>{{ email.email }}</td>
+                    <td>{{ email.ip }}</td>
+                    <td>
+                        <a href={{ path('emaildelete')}}?{{"email="~email.id}}> Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <button type="button">
+            <a href={{ path('export')}}>
+                Export database as CSV
+            </a>
+        </button>
+    </div>
+    <div>
+        <button type="button" onclick="location.href='/';">Take me back to the main page</button>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+{% endblock %}
+
