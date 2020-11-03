@@ -15,3 +15,14 @@ zaznam bol zmazany. Ak sa vsak zavola zmazanie na neexistujuci zaznam, respektiv
 neexistujuce ID, je na to uzivatel taktiez upozorneny.
 Taktiez je moznost exportovat emaily ako CSV tlacidlom "Export".
 
+Postup na deploy pre Windows:
+1. mat nainstalovane PHP, MySQL a Symfony a spravne ich nakonfigurovat
+2. beziaci mySQL server
+3. naklonovat si repozitor
+4. v projektovom subore .env zmenit DATABASE_URL premennu na 
+DATABASE_URL=mysql://loginNaVasServerMySQL:hesloNaVasLoginMySQL@ipVashoMysqlServeru:portNaPripojenie/menoDatabazy
+Pre meno databazy odporucam nieco ako porta_test
+5. v adresari s projektom pouzit cez prikazovy riadok "composer install"
+6. az to skonci, prikaz "php bin/console doctrine:database:create" vytvorite databazu na serveri
+7. nasledne prikaz "php bin/console doctrine:migrations:migrate" vytvori relevantnu tabulku
+8. symfony check:requirements spusti aplikaciu
