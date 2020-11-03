@@ -36,12 +36,14 @@ class AdminController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $emailId = $request->get("email");
         $email = $manager->getRepository(NewsletterEmail::class)->find($emailId);
+
         if ($email){
             $manager->remove($email);
             $manager->flush();
             $this->addFlash("success","Email successfuly deleted!");
             return $this->redirectToRoute("admin");
         }
+
         $this->addFlash("warning","Such database entry does not exist!");
         return $this->redirectToRoute("admin");
     }
@@ -54,8 +56,10 @@ class AdminController extends AbstractController
     public function export(Request $request){
         $manager = $this->getDoctrine()->getManager();
         $emails = $manager->getRepository(NewsletterEmail::class)->findAll();
+
         $header = ['ID', 'Date and time', 'Email', "IP"];
-        $records = [];
+        $data = [];
+
         foreach ($emails as $email){
             $records [] = [
                 $email->getId(),
@@ -66,9 +70,9 @@ class AdminController extends AbstractController
 
         $csv = Writer::createFromString('');
         $csv->insertOne($header);
-        $csv->insertAll($records);
+        $csv->insertAll($data);
 
-        $csv->output('email.csv');
+        $csv->output('emails.csv');
         die;
     }
 }
