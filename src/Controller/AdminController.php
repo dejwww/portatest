@@ -59,9 +59,8 @@ class AdminController extends AbstractController
 
         $header = ['ID', 'Date and time', 'Email', "IP"];
         $data = [];
-
         foreach ($emails as $email){
-            $records [] = [
+            $data [] = [
                 $email->getId(),
                 $email->getDateTime(),
                 $email->getEmail(),
@@ -72,7 +71,7 @@ class AdminController extends AbstractController
         $csv->insertOne($header);
         $csv->insertAll($data);
 
-        $csv->output('emails.csv');
+        $csv->output('emails');
         die;
     }
 }

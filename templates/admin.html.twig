@@ -1,42 +1,28 @@
-<style>
-    h1 {text-align: center;}
-    p {text-align: center;}
-    div {text-align: center;}
-    th{
-         margin: 3px;
-         padding: 5px;
-         width: max-content;
-         border: 1px solid;
-         border-collapse: collapse;
-     }
-    table td{
-        margin: 3px;
-        padding: 5px;
-        width: max-content;
-        border: 1px solid;
-        border-collapse: collapse;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('build/app.css') }}">
 <title>
 {% block title %}
     Admin section
 {% endblock %}
 </title>
 {% block body %}
-    <h1>This is the admin page</h1>
+    <div class="text-center">
+        <h1>This is the admin page</h1>
+    </div>
+    <a class="btn btn-outline-secondary float-lg-left" href={{ path("main") }}>
+        Take me back to the main page
+    </a>
+    <div class="container">
+        {% for label, flashes in app.session.flashbag.all %}
 
-    {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="alert">
+                    {{ flash }}
+                </div>
+            {% endfor %}
 
-        {% for flash in flashes %}
-            <div class="alert">
-                {{ flash }}
-            </div>
         {% endfor %}
 
-    {% endfor %}
-
-    <div>
-        <table style=" margin:0 auto;" cellpadding="0" cellspacing="0" >
+        <table class="table table-striped" style=" margin:0 auto;">
 
             <thead>
             <tr>
@@ -61,19 +47,13 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
-    <div>
-        <button type="button">
-            <a href={{ path('export')}}>
-                Export database as CSV
-            </a>
-        </button>
-    </div>
-    <div>
-        <button type="button" onclick="location.href='/';">Take me back to the main page</button>
-    </div>
 
+        <a class="btn btn-outline-info" href={{ path('export')}}>
+                Export database as CSV
+        </a>
+    </div>
 {% endblock %}
 {% block javascripts %}
+    <script src="{{ asset('build/app.js') }}"></script>
 {% endblock %}
 

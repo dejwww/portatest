@@ -1,23 +1,27 @@
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
-<style>
-    h1 {text-align: center;}
-    p {text-align: center;}
-    div {text-align: center;}
-</style>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
+{% endblock %}
 <title>
 {% block title %}
     Welcome to the porta test!
 {% endblock %}
 </title>
 {% block body %}
-    <h1>This really is a porta test! 11/2020</h1>
+    <div class="text-center">
+        <h1>This really is a porta test! 11/2020</h1>
 
-    <p>If you want to receive our newsletter, please sign up below!</p>
-
+        <p>If you want to receive our newsletter, please sign up below!</p>
+    </div>
+    <div class="float-lg-right">
+            <a class="btn btn-outline-primary btn-link" href={{ path("admin") }}>
+                Take me to the admin page
+            </a>
+    </div>
+<div class="container">
     {% for label, flashes in app.session.flashbag.all %}
 
         {% for flash in flashes %}
-            <div class="alert">
+            <div class="alert alert-info">
                 {{ flash }}
             </div>
         {% endfor %}
@@ -27,10 +31,10 @@
     {{ form(form) }}
 
     {{ form_errors(form) }}
-    <div>
-        <button type="button" onclick="location.href='/admin';">Take me to the admin page</button>
-    </div>
+</div>
+
 {% endblock %}
 {% block javascripts %}
+    <script src="{{ asset('build/app.js') }}"></script>
 {% endblock %}
 
